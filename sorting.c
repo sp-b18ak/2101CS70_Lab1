@@ -5,6 +5,7 @@
 
 
 void fswap(int arr[],int a, int b);
+int p(int arr[],int l, int m, int k);
 void fsort(int arr[], int n);
 void print(int arr[], int n);
   
