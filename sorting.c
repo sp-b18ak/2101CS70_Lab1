@@ -3,9 +3,7 @@
 #include <stdbool.h>
 #include <math.h>  
 
-
-void fswap(int arr[],int a, int b);
-int p(int arr[],int l, int m, int k);
+void merge(int arr[], int l, int m, int r);
 void fsort(int arr[], int l,int r);
 void print(int arr[], int n);
   
@@ -27,51 +25,69 @@ int main()
     return 0;
 }
 
-void fswap(int arr[],int a, int b)
+void merge(int arr[], int l, int m, int r)
 {
-    int temp = arr[a];
-    arr[a] = arr[b];
-    arr[b] = temp;
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+  
+    int L[n1], R[n2];
+  
+    for (i = 0; i < n1; i++)
+    {
+        L[i] = arr[l + i];
+    }
+    for (j = 0; j < n2; j++)
+    {
+        R[j] = arr[m + 1 + j];
+    }
+  
+    i = 0; 
+  
+    j = 0; 
+  
+    k = l; 
+    while (i < n1 && j < n2) 
+    {
+        if (L[i] <= R[j]) 
+        {
+            arr[k] = L[i];
+            i++;
+        }
+        else 
+        {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+  
+    while (i < n1) 
+    {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+  
+    while (j < n2) 
+    {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
 }
-
-int p(int arr[],int l, int m, int k) 
+  
+void fsort(int arr[],int l, int r)
 {
-   int lp = l -1;
-   int mp = m;
-
-   while(true) 
-   {
-      while(arr[++lp] < k) {
-      }
-		
-      while(mp > 0 && arr[--mp] > k) {
-      }
-
-      if(lp >= mp) {
-         break;
-      } 
-      else {
-         fswap(lp,mp);
-      }
-   }
-	
-   swap(lp,m);
-   return lp;
-}
-
-void fsort(int arr[],int l, int r) 
-{
-   if(r-l <= 0) 
-   {
-      return;   
-   } 
-   else 
-   {
-      int k = arr[r];
-      int pp = p(arr,l, r, k);
-      fsort(arr,l,pp-1);
-      fsort(arr,pp+1,r);
-   }        
+    if (l < r) 
+    {
+        int m = l + (r - l) / 2;
+  
+        fsort(arr, l, m);
+        fsort(arr, m + 1, r);
+  
+        merge(arr, l, m, r);
+    }
 }
   
 void print(int arr[], int n)
