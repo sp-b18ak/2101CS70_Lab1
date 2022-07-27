@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <math.h>  
 
+
+void fswap(int *a, int *b);
 void fsort(int arr[], int n);
 void print(int arr[], int n);
   
@@ -24,20 +26,25 @@ int main()
     return 0;
 }
 
+void fswap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void fsort(int arr[], int n)
 {
-    int i , j , k;
-    for (i = 1; i < n; i++) 
+    int i, j;
+    for (i = 0; i < n-1; i++)
+
+    for (j = 0; j < n-i-1; j++)
     {
-        k = arr[i];
-        j = i - 1;
-  
-        while (j >= 0 && arr[j] > k) 
+        if (arr[j] > arr[j+1])
         {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            fswap(&arr[j], &arr[j+1]);
         }
-        arr[j + 1] = k;
+    }
 }
   
 void print(int arr[], int n)
