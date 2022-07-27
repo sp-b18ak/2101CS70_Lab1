@@ -4,7 +4,7 @@
 #include <math.h>  
 
 
-void fswap(int *a, int *b);
+void fswap(int arr[],int a, int b);
 void fsort(int arr[], int n);
 void print(int arr[], int n);
   
@@ -20,31 +20,57 @@ int main()
         scanf("%d",&arr[i]);
     }
   
-    fsort(arr, n);
+    fsort(arr,0, n-1);
     print(arr, n);
   
     return 0;
 }
 
-void fswap(int *a, int *b)
+void fswap(int arr[],int a, int b)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    int temp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = temp;
 }
 
-void fsort(int arr[], int n)
+int p(int arr[],int l, int m, int k) 
 {
-    int i, j;
-    for (i = 0; i < n-1; i++)
+   int lp = l -1;
+   int mp = m;
 
-    for (j = 0; j < n-i-1; j++)
-    {
-        if (arr[j] > arr[j+1])
-        {
-            fswap(&arr[j], &arr[j+1]);
-        }
-    }
+   while(true) 
+   {
+      while(arr[++lp] < k) {
+      }
+		
+      while(mp > 0 && arr[--mp] > k) {
+      }
+
+      if(lp >= mp) {
+         break;
+      } 
+      else {
+         fswap(lp,mp);
+      }
+   }
+	
+   swap(lp,m);
+   return lp;
+}
+
+void fsort(int arr[],int l, int r) 
+{
+   if(r-l <= 0) 
+   {
+      return;   
+   } 
+   else 
+   {
+      int k = arr[r];
+      int pp = p(arr,l, r, k);
+      fsort(arr,l,pp-1);
+      fsort(arr,pp+1,r);
+   }        
 }
   
 void print(int arr[], int n)
